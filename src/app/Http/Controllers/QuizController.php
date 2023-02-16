@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use App\BigQuestion;
-use App\Question;
-use Illuminate\Support\Facades\DB;
+// use App\Question;
+// use Illuminate\Support\Facades\DB;
 
 // use Illuminate\Http\Request;
 

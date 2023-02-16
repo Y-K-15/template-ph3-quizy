@@ -43,3 +43,6 @@ Route::get('/quiz/{id}', [QuizController::class, 'detail'])
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// クソセキュリティのログイン後→アドミンのindexに遷移
+// Route::get('/home', function () { return redirect('/admin'); });

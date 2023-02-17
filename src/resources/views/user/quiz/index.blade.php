@@ -10,7 +10,7 @@
   <main>
   <pre>
     <?php
-    var_dump($bigQuestions);
+    // var_dump($bigQuestions);
     ?>
   </pre>
 

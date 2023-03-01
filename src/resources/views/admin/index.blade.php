@@ -8,12 +8,15 @@
   <div>
     @foreach($big_questions as $big_question)
       <h2>{{$big_question->name}}</h2>
+      <div>
+        <a href="/admin/big_question/edit/{{$big_question->id}}">タイトル変更</a>
+      </div>
       <!-- 各大問ごとの小問(高輪とか亀戸とか)について -->
       <div>
         @foreach($questions->where('big_question_id', $big_question->id) as $question)
           <div>
             <h3>{{$loop->index + 1}}</h3>
-            <a href=""><img src="images/{{ $question->image }}" alt=""></a>
+            <a href=""><img src="{{ asset( 'images/' . $question->image) }}" alt=""></a>
           </div>
         @endforeach
         <!-- 各大問の小問を追加したり消したり -->

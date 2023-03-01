@@ -53,6 +53,20 @@ class AdminController extends Controller
         return redirect('/admin');
     }
 
+    public function bigQuestionTitleEditIndex($big_question_id){
+        $big_question = BigQuestion::find($big_question_id);
+        return view('admin.big_question.edit_bq_title', compact('big_question'));
+    }
+
+    public function bigQuestionTitleEdit(Request $request, $big_question_id){
+        
+        $big_question = BigQuestion::find($big_question_id);
+        $big_question->name = $request->title;
+        $big_question->save();
+
+        return redirect('/admin');
+    }
+
     public function QuizAddIndex($big_question_id){
         $big_question = BigQuestion::find($big_question_id);
         return view('admin.quiz.add', compact('big_question'));

@@ -58,6 +58,11 @@ Route::get('/admin/big_question/remove/{big_question_id}',[AdminController::clas
 
 Route::post('/admin/big_question/remove/{big_question_id}',[AdminController::class, 'bigQuestionRemove'] )->name('bq.remove');
 
+// 最後のurlパラメータのところが,$big_question_idって$がついてたから404になってた。
+Route::get('/admin/big_question/edit/{big_question_id}',[AdminController::class, 'bigQuestionTitleEditIndex'])->name('bq.title.edit.index');
+
+Route::post('/admin/big_question/edit/{big_question_id}',[AdminController::class, 'bigQuestionTitleEdit'])->name('bq.title.edit.');
+
 
 Route::get('admin/quiz/add/{big_question_id}',[AdminController::class, 'QuizAddIndex'])->name('quiz.add.index');
 

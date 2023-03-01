@@ -53,12 +53,21 @@ class AdminController extends Controller
         return redirect('/admin');
     }
 
-    public function bigQuestionTitleEditIndex($big_question_id){
+
+    public function bigQuestionEditIndex($big_question_id){
         $big_question = BigQuestion::find($big_question_id);
-        return view('admin.big_question.edit_bq_title', compact('big_question'));
+        $questions = Question::where('big_question_id', '=', $big_question_id)->get();
+        return view('admin.big_question.edit_bq', compact('big_question','questions'));
     }
 
-    public function bigQuestionTitleEdit(Request $request, $big_question_id){
+
+
+
+
+
+
+
+    public function bigQuestionEdit(Request $request, $big_question_id){
         
         $big_question = BigQuestion::find($big_question_id);
         $big_question->name = $request->title;
@@ -121,5 +130,54 @@ class AdminController extends Controller
         return redirect('/admin');
     }
 
+    // 小問削除
+    public function QuizRemoveIndex($big_question_id,$question_id){
+        $question = Question::find($question_id);
+        return view('admin.quiz.remove_quiz', compact('question'));
+    }
+    public function QuizRemove(Request $request, $big_question_id, $question_id){
 
+        $question = Question::find($question_id);
+        // $choices = Choice::where('question_id', "=", $question_id);
+
+        $choices = $question->choices;
+        foreach($choices as $choice){
+            $choice->delete();
+        }
+        $question->delete();
+
+        return redirect('/admin/big_question/edit/'.$big_question_id);
+    }
+
+
+
+    public function QuizEditIndex($big_question_id,$question_id){
+        $big_question = BigQuestion::find($big_question_id);
+        $question = Question::with('choices')->find($question_id);
+        // この二つ、１つにできないかな？
+        return view('admin.quiz.edit', compact('big_question','question'));
+    }
+
+    public function QuizEdit(Request $request, $big_question_id,$question_id){
+        
+        $question = Question::find($question_id);
+        // $fileName = '.png';
+        // $question->image = $fileName;
+        // $question->save();
+
+        // dd($question->choices);
+        foreach($question->choices as $index => $choice){
+            $count = $index + 1;
+            $choice->name = $request->{'choice' . $count};
+            if(intval($request->valid) == $count){
+                $choice->is_valid = true;
+            }else{
+                $choice->is_valid = false;
+            }
+            $choice->save();
+        }
+
+        return redirect('/admin');
+
+    }
 }

@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @section('content')
-
+    <div>
+      <img src="{{ asset( 'images/' . $question->image) }}" alt="">
+    </div>
     <form action="/{{ request()->path() }}" method="POST">
       @csrf
-      <input type="text" value="{{$big_question->name}}" name="title">
-      <button type="submit">変更</button>
+      <button type="submit">削除</button>
     </form>
 @endsection

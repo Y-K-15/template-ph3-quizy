@@ -58,12 +58,22 @@ Route::get('/admin/big_question/remove/{big_question_id}',[AdminController::clas
 
 Route::post('/admin/big_question/remove/{big_question_id}',[AdminController::class, 'bigQuestionRemove'] )->name('bq.remove');
 
-// 最後のurlパラメータのところが,$big_question_idって$がついてたから404になってた。
-Route::get('/admin/big_question/edit/{big_question_id}',[AdminController::class, 'bigQuestionTitleEditIndex'])->name('bq.title.edit.index');
 
-Route::post('/admin/big_question/edit/{big_question_id}',[AdminController::class, 'bigQuestionTitleEdit'])->name('bq.title.edit.');
+// 最後のurlパラメータのところが,$big_question_idって$がついてたから404になってた。
+Route::get('/admin/big_question/edit/{big_question_id}',[AdminController::class, 'bigQuestionEditIndex'])->name('bq.title.edit.index');
+
+Route::post('/admin/big_question/edit/{big_question_id}',[AdminController::class, 'bigQuestionEdit'])->name('bq.title.edit.');
 
 
 Route::get('admin/quiz/add/{big_question_id}',[AdminController::class, 'QuizAddIndex'])->name('quiz.add.index');
 
 Route::post('admin/quiz/add/{big_question_id}', [AdminController::class, 'QuizAdd'] )->name('quiz.add');
+
+// 小問削除ボタンがあるページへ
+Route::get('admin/quiz/remove/{big_question_id}/{question_id}',[AdminController::class, 'QuizRemoveIndex'] )->name('quiz.remove.index');
+// 小問削除
+Route::post('admin/quiz/remove/{big_question_id}/{question_id}',[AdminController::class, 'QuizRemove'] )->name('quiz.remove');
+
+Route::get('admin/quiz/edit/{big_question_id}/{question_id}', [AdminController::class, 'QuizEditIndex'])->name('quiz.edit.index');
+
+Route::post('admin/quiz/edit/{big_question_id}/{question_id}', [AdminController::class, 'QuizEdit'])->name('quiz.edit');

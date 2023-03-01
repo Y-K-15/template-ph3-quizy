@@ -10,6 +10,7 @@ class Question extends Model
     protected $fillable = [
         'big_question_id',
         'image',
+        'sort',
     ];
 
     public function choices()

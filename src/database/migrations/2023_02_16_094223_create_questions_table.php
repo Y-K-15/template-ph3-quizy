@@ -17,6 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('big_question_id');
             $table->string('image');
+            $table->integer('sort');
             $table->timestamps();
         });
     }

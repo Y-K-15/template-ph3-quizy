@@ -74,6 +74,9 @@ Route::get('admin/quiz/remove/{big_question_id}/{question_id}',[AdminController:
 // 小問削除
 Route::post('admin/quiz/remove/{big_question_id}/{question_id}',[AdminController::class, 'QuizRemove'] )->name('quiz.remove');
 
+// 小問ならびかえ
+Route::post('admin/quiz/sort/{big_question_id}', [AdminController::class, 'QuizSort'] )->name('quiz.sort');
+
 Route::get('admin/quiz/edit/{big_question_id}/{question_id}', [AdminController::class, 'QuizEditIndex'])->name('quiz.edit.index');
 
 Route::post('admin/quiz/edit/{big_question_id}/{question_id}', [AdminController::class, 'QuizEdit'])->name('quiz.edit');

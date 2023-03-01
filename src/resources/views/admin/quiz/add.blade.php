@@ -32,6 +32,7 @@
       <h3>問題の画像</h3>
       <input type="file" name="file">
     </div>
+    <input type="hidden" name="sort" value="{{$count + 1}}">
     <button type="submit" value="">追加</button>
   </form>
 

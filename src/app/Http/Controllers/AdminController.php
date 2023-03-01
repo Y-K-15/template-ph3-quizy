@@ -56,8 +56,9 @@ class AdminController extends Controller
 
     public function bigQuestionEditIndex($big_question_id){
         $big_question = BigQuestion::find($big_question_id);
-        $questions = Question::where('big_question_id', '=', $big_question_id)->get();
-        return view('admin.big_question.edit_bq', compact('big_question','questions'));
+        $questions = Question::where('big_question_id', '=', $big_question_id)->orderBy('sort','asc')->get();
+        $count = Question::where('big_question_id', '=', $big_question_id)->count();
+        return view('admin.big_question.edit_bq', compact('big_question','questions','count'));
     }
 
 
@@ -78,7 +79,8 @@ class AdminController extends Controller
 
     public function QuizAddIndex($big_question_id){
         $big_question = BigQuestion::find($big_question_id);
-        return view('admin.quiz.add', compact('big_question'));
+        $count = Question::where('big_question_id', "=", $big_question_id)->count();
+        return view('admin.quiz.add', compact('count','big_question'));
     }
 
     public function QuizAdd(Request $request, $big_question_id){
@@ -97,6 +99,7 @@ class AdminController extends Controller
         $question = new Question;
         $question->big_question_id = $big_question_id;
         $question->image = $fileName;
+        $question->sort = $request->sort;
         $question->save();
 
         $question->choices()->saveMany([
@@ -127,7 +130,7 @@ class AdminController extends Controller
         // https://readouble.com/laravel/6.x/ja/eloquent-relationships.html
         // saveメソッドは自動的に新しいCommentモデルのpost_idへ適した値を代入します。
 
-        return redirect('/admin');
+        return redirect('/admin/big_question/edit/'.$big_question_id);
     }
 
     // 小問削除
@@ -146,6 +149,15 @@ class AdminController extends Controller
         }
         $question->delete();
 
+        return redirect('/admin/big_question/edit/'.$big_question_id);
+    }
+
+    public function QuizSort(Request $request, $big_question_id){
+
+        foreach(){
+            dd($sort = $request->sort);
+
+        }
         return redirect('/admin/big_question/edit/'.$big_question_id);
     }
 

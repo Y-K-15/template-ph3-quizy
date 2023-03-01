@@ -7,9 +7,9 @@
 @section('title', 'Detail')
 @section('content')
   <div class="main_container">
-    <h1 class="question_title">{{ $Questions->name }}</h1>     
+    <h1 class="question_title">{{ $big_question->name }}</h1>     
     <div class="main_inner" id="quizDivWrapper">
-      @foreach($Questions->questions as $question)
+      @foreach($questions as $question)
       <div class="quiz_div"> 
         <h2 class="question">{{$loop->iteration}}.この地名はなんて読む？</h2>
         <!-- https://qiita.com/engineer_atsumi/items/8057b35a28063f03450e  -->

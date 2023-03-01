@@ -23,17 +23,20 @@ class QuestionsTableSeeder extends Seeder
             [
                 'big_question_id' => 1,
                 'image' => 'takanawa.png',
+                'sort' => 2,
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
                 'big_question_id' => 1,
+                'sort' => 1,
                 'image' => 'kameido.png',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
                 'big_question_id' => 2,
+                'sort' => 1,
                 'image' => 'mukainada.png',
                 'created_at' => $now,
                 'updated_at' => $now,

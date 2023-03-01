@@ -3,12 +3,13 @@
   <h1>設問編集</h1>
   <h2>{{$big_question->name}}</h2>
 
+  <div><img src="{{ asset( 'images/' . $question->image) }}" alt=""></div>
   <form action="/{{ request() -> path() }}" method="POST" enctype="multipart/form-data">
     @csrf
     <table>
       <thead>
         <tr>
-          <th>選択肢追加</th>
+          <th>選択肢編集</th>
           <th>正解にチェックしてね</th>
         </tr>
       </thead>
@@ -33,7 +34,9 @@
       <h3>問題の画像</h3>
       <input type="file" name="file">
     </div> -->
-    <button type="submit" value="">変更</button>
+    <a href="/admin/quiz/choice_add/{{$big_question->id}}/{{$question->id}}">＋ 選択肢を追加する</a>
+    <div><button type="submit" value="">変更</button></div>
   </form>
+
 
 @endsection

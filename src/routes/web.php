@@ -77,3 +77,6 @@ Route::post('admin/quiz/remove/{big_question_id}/{question_id}',[AdminController
 Route::get('admin/quiz/edit/{big_question_id}/{question_id}', [AdminController::class, 'QuizEditIndex'])->name('quiz.edit.index');
 
 Route::post('admin/quiz/edit/{big_question_id}/{question_id}', [AdminController::class, 'QuizEdit'])->name('quiz.edit');
+
+// 選択肢追加
+Route::get('admin/quiz/choice_add/{big_question_id}/{question_id}',[AdminController::class, 'ChoiceAdd'])->name('choice.add');

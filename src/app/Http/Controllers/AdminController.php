@@ -180,4 +180,13 @@ class AdminController extends Controller
         return redirect('/admin');
 
     }
+
+    public function ChoiceAdd($big_question_id, $question_id){
+        $choice = new Choice;
+        $choice->question_id = $question_id;
+        $choice->name = "新しい選択肢";
+        $choice->is_valid = false;
+        $choice->save();
+        return redirect('/admin/quiz/edit/'.$big_question_id."/".$question_id);
+    }
 }

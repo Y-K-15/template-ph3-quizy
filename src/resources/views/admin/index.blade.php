@@ -12,13 +12,13 @@
       <div>
         @foreach($questions->where('big_question_id', $big_question->id) as $question)
           <div>
-            <h3>{{$question->id}}</h3>
+            <h3>{{$loop->index + 1}}</h3>
             <a href=""><img src="images/{{ $question->image }}" alt=""></a>
           </div>
         @endforeach
         <!-- 各大問の小問を追加したり消したり -->
         <ul>
-          <li><a href="">設問追加</a></li>
+          <li><a href="/admin/quiz/add/{{ $big_question->id }}">設問追加</a></li>
           <li><a href="/admin/big_question/remove/{{$big_question->id}}">大問削除</a></li>
         </ul>
       </div>

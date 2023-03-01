@@ -56,4 +56,9 @@ Route::post('/admin/big_question/add', [AdminController::class, 'bigQuestionAdd'
 
 Route::get('/admin/big_question/remove/{big_question_id}',[AdminController::class, 'bigQuestionRemoveIndex'] )->name('bq.remove.index');
 
-Route::post('/admin/big_question/remove/{big_question_id}',[AdminController::class, 'bigQuestionRemove'] )->name('bq.remove');;
+Route::post('/admin/big_question/remove/{big_question_id}',[AdminController::class, 'bigQuestionRemove'] )->name('bq.remove');
+
+
+Route::get('admin/quiz/add/{big_question_id}',[AdminController::class, 'QuizAddIndex'])->name('quiz.add.index');
+
+Route::post('admin/quiz/add/{big_question_id}', [AdminController::class, 'QuizAdd'] )->name('quiz.add');

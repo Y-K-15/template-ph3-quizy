@@ -153,10 +153,12 @@ class AdminController extends Controller
     }
 
     public function QuizSort(Request $request, $big_question_id){
-
-        foreach(){
-            dd($sort = $request->sort);
-
+        // find では１行しか取れないっす
+        $questions = Question::where('big_question_id', '=', $big_question_id)->orderBy('sort','asc')->get();
+        foreach($questions as $loop => $question){
+            $c = $loop + 1;
+            $question->sort = $request->{'sort'.$c};
+            $question->save();
         }
         return redirect('/admin/big_question/edit/'.$big_question_id);
     }

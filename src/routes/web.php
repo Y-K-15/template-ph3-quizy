@@ -45,8 +45,12 @@ Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-// クソセキュリティのログイン後→アドミンのindexに遷移
-Route::get('/home', function () { return redirect('/admin'); });
+
+
+Route::middleware(['auth'])->group(function(){
+
+  // クソセキュリティのログイン後→アドミンのindexに遷移
+// Route::get('/home', function () { return redirect('/admin'); });
 
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
@@ -83,3 +87,11 @@ Route::post('admin/quiz/edit/{big_question_id}/{question_id}', [AdminController:
 
 // 選択肢追加
 Route::get('admin/quiz/choice_add/{big_question_id}/{question_id}',[AdminController::class, 'ChoiceAdd'])->name('choice.add');
+
+
+
+
+
+
+
+});

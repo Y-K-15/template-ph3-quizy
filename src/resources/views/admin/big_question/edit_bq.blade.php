@@ -12,8 +12,8 @@
 <h3>小問</h3>
 
 <div>
-  <form action="/admin/quiz/sort/{{$big_question->id}}" method="POSt">
-
+  <form action="/admin/quiz/sort/{{$big_question->id}}" method="POST">
+  @csrf
     @foreach($questions->where('big_question_id', $big_question->id) as $question)
     <div>
       <h3>{{$loop->index + 1}}</h3>
@@ -21,11 +21,12 @@
       <div>
 
         <p>表示順番</p>
-        <select name="" id="">
-          @for ($i = 1; $i <= $count; $i++) <option @if($i==$question->sort) selected @endif>
-            {{$i}}
+        <select name="sort{{$loop->iteration}}" id="">
+          @for ($i = 1; $i <= $count; $i++)
+            <option value="{{$i}}" @if($i==$question->sort) selected @endif>
+              {{$i}}番目に表示
             </option>
-            @endfor
+          @endfor
         </select>
       </div>
       <a href="/admin/quiz/edit/{{$big_question->id}}/{{$question->id}}"><img src="{{ asset( 'images/' . $question->image) }}" alt=""></a>

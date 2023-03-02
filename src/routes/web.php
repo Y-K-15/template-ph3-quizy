@@ -33,13 +33,6 @@ Route::get('/quiz/{id}', [QuizController::class, 'detail'])
 // whereNumber って何
 //→laravel9でしか使えないです。
 
-// // 管理者画面
-// // https://qiita.com/yamotuki/items/b96978f8e379e285ecb6 
-// Route::middleware(['auth'])->group(function(){
-//     Route::get('/admin', 'AdminController@index');
-    
-// });
-
 
 Auth::routes();
 
@@ -54,39 +47,42 @@ Route::middleware(['auth'])->group(function(){
 
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
-Route::get('/admin/big_question/add',[AdminController::class, 'bigQuestionAddIndex'] )->name('bq.add.index');
+Route::prefix('admin')->group(function(){
+  Route::prefix('big_question')->group(function(){
+    // 大問追加
+    Route::get('add',[AdminController::class, 'bigQuestionAddIndex'] )->name('bq.add.index');
+    Route::post('add', [AdminController::class, 'bigQuestionAdd'] )->name('bq.add');
+    // 大問削除
+    Route::get('remove/{big_question_id}',[AdminController::class, 'bigQuestionRemoveIndex'] )->name('bq.remove.index');
+    Route::post('remove/{big_question_id}',[AdminController::class, 'bigQuestionRemove'] )->name('bq.remove');
+    // 大問編集画面 ここから小問をいじる機能へ飛べる
+    // 最後のurlパラメータのところが,$big_question_idって$がついてたから404になってた。
+    Route::get('edit/{big_question_id}',[AdminController::class, 'bigQuestionEditIndex'])->name('bq.title.edit.index');
+    Route::post('edit/{big_question_id}',[AdminController::class, 'bigQuestionEdit'])->name('bq.title.edit.');
+  });
+  Route::prefix('quiz')->group(function(){
+    // 小問追加
+    Route::get('add/{big_question_id}',[AdminController::class, 'QuizAddIndex'])->name('quiz.add.index');
+    Route::post('add/{big_question_id}', [AdminController::class, 'QuizAdd'] )->name('quiz.add');
+    // 小問削除ボタンがあるページへ
+    Route::get('remove/{big_question_id}/{question_id}',[AdminController::class, 'QuizRemoveIndex'] )->name('quiz.remove.index');
+    // 小問削除
+    Route::post('remove/{big_question_id}/{question_id}',[AdminController::class, 'QuizRemove'] )->name('quiz.remove');
+    // 小問ならびかえ
+    Route::post('sort/{big_question_id}', [AdminController::class, 'QuizSort'] )->name('quiz.sort');
+    // 選択肢編集, いずれここに画像の変更も入れたい
+    Route::get('edit/{big_question_id}/{question_id}', [AdminController::class, 'QuizEditIndex'])->name('quiz.edit.index');
+    Route::post('edit/{big_question_id}/{question_id}', [AdminController::class, 'QuizEdit'])->name('quiz.edit');
+    // 選択肢追加
+    Route::get('choice_add/{big_question_id}/{question_id}',[AdminController::class, 'ChoiceAdd'])->name('choice.add');
+    
+  });
 
-Route::post('/admin/big_question/add', [AdminController::class, 'bigQuestionAdd'] )->name('bq.add');
-
-Route::get('/admin/big_question/remove/{big_question_id}',[AdminController::class, 'bigQuestionRemoveIndex'] )->name('bq.remove.index');
-
-Route::post('/admin/big_question/remove/{big_question_id}',[AdminController::class, 'bigQuestionRemove'] )->name('bq.remove');
+});
 
 
-// 最後のurlパラメータのところが,$big_question_idって$がついてたから404になってた。
-Route::get('/admin/big_question/edit/{big_question_id}',[AdminController::class, 'bigQuestionEditIndex'])->name('bq.title.edit.index');
-
-Route::post('/admin/big_question/edit/{big_question_id}',[AdminController::class, 'bigQuestionEdit'])->name('bq.title.edit.');
 
 
-Route::get('admin/quiz/add/{big_question_id}',[AdminController::class, 'QuizAddIndex'])->name('quiz.add.index');
-
-Route::post('admin/quiz/add/{big_question_id}', [AdminController::class, 'QuizAdd'] )->name('quiz.add');
-
-// 小問削除ボタンがあるページへ
-Route::get('admin/quiz/remove/{big_question_id}/{question_id}',[AdminController::class, 'QuizRemoveIndex'] )->name('quiz.remove.index');
-// 小問削除
-Route::post('admin/quiz/remove/{big_question_id}/{question_id}',[AdminController::class, 'QuizRemove'] )->name('quiz.remove');
-
-// 小問ならびかえ
-Route::post('admin/quiz/sort/{big_question_id}', [AdminController::class, 'QuizSort'] )->name('quiz.sort');
-
-Route::get('admin/quiz/edit/{big_question_id}/{question_id}', [AdminController::class, 'QuizEditIndex'])->name('quiz.edit.index');
-
-Route::post('admin/quiz/edit/{big_question_id}/{question_id}', [AdminController::class, 'QuizEdit'])->name('quiz.edit');
-
-// 選択肢追加
-Route::get('admin/quiz/choice_add/{big_question_id}/{question_id}',[AdminController::class, 'ChoiceAdd'])->name('choice.add');
 
 
 

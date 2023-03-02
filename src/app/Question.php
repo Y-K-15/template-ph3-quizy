@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     //
-    // public function big_question(){
-    //     return $this->belongsTo('App\BigQuestion');
-    // }
+    protected $fillable = [
+        'big_question_id',
+        'image',
+        'sort',
+    ];
 
     public function choices()
     {

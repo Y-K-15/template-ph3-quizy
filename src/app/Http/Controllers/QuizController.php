@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use App\BigQuestion;
-// use App\Question;
+use App\Question;
 // use Illuminate\Support\Facades\DB;
 
 // use Illuminate\Http\Request;
@@ -22,9 +22,9 @@ class QuizController extends Controller
         return view('user.quiz.index', compact('bigQuestions'));
     }
     public function detail($id){
-        // dd($Questions = BigQuestion::with('questions.choices')->find($id));
-        $Questions = BigQuestion::with('questions.choices')->find($id);
-        // $Questions = Question::all();
-        return view('user.quiz.detail', compact('Questions'));
+
+        $big_question = BigQuestion::find($id);
+        $questions = Question::where('big_question_id', '=', $id)->orderBy('sort','asc')->get();
+        return view('user.quiz.detail', compact('big_question', 'questions'));
     }
 }
